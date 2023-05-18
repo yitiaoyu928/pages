@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>渲染器(render) | three.js手册</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e8e4f3a3.css" as="style"><link rel="preload" href="/assets/js/app.d32b22e5.js" as="script"><link rel="preload" href="/assets/js/2.f44a4f26.js" as="script"><link rel="preload" href="/assets/js/15.b202173c.js" as="script"><link rel="prefetch" href="/assets/js/10.16baf44d.js"><link rel="prefetch" href="/assets/js/11.537a8446.js"><link rel="prefetch" href="/assets/js/12.362e04f9.js"><link rel="prefetch" href="/assets/js/13.478c8608.js"><link rel="prefetch" href="/assets/js/14.a6a44a83.js"><link rel="prefetch" href="/assets/js/16.45cfd493.js"><link rel="prefetch" href="/assets/js/3.a72851b7.js"><link rel="prefetch" href="/assets/js/4.7ac2b204.js"><link rel="prefetch" href="/assets/js/5.f702624b.js"><link rel="prefetch" href="/assets/js/6.c76c0e1e.js"><link rel="prefetch" href="/assets/js/7.cab9d115.js"><link rel="prefetch" href="/assets/js/8.93cf2ae6.js"><link rel="prefetch" href="/assets/js/9.d69edd5b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e8e4f3a3.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">three.js手册</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/scene.html" class="sidebar-link">场景(scene)</a></li><li><a href="/camera.html" class="sidebar-link">相机(camera)</a></li><li><a href="/render.html" aria-current="page" class="active sidebar-link">渲染器(render)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/render.html#渲染器-render" class="sidebar-link">渲染器(render)</a></li></ul></li><li><a href="/light.html" class="sidebar-link">灯光(light)</a></li><li><a href="/material.html" class="sidebar-link">材质(material)</a></li><li><a href="/raycaster.html" class="sidebar-link">射线拾取(raycaster)</a></li><li><a href="/geometry.html" class="sidebar-link">几何形状(geometry)</a></li><li><a href="/mesh.html" class="sidebar-link">3D对象类(mesh)</a></li><li><a href="/loader.html" class="sidebar-link">加载器(Loader)</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="渲染器-render"><a href="#渲染器-render" class="header-anchor">#</a> 渲染器(render)</h2> <p>WebGL 是一种用于 Web 的低级别图形 API。WebGLRenderer 是 three.js 的核心组件之一，负责创建 WebGL 上下文，设置渲染管道，并将场景绘制到屏幕上</p> <h3 id="创建"><a href="#创建" class="header-anchor">#</a> 创建</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code>State<span class="token punctuation">.</span>render <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>WebGLRenderer</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">canvas</span><span class="token operator">:</span> canvasRef<span class="token punctuation">.</span>value <span class="token punctuation">}</span><span class="token punctuation">)</span>
+State<span class="token punctuation">.</span>render<span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>innerWidth<span class="token punctuation">,</span> window<span class="token punctuation">.</span>innerHeight<span class="token punctuation">)</span>
+State<span class="token punctuation">.</span>render<span class="token punctuation">.</span><span class="token function">setPixelRatio</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>devicePixelRatio<span class="token punctuation">)</span> <span class="token comment">// 设置屏幕像素比,当页面缩放后效果会明显一些</span>
+State<span class="token punctuation">.</span>render<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>State<span class="token punctuation">.</span>scene<span class="token punctuation">,</span> State<span class="token punctuation">.</span>camera<span class="token punctuation">)</span> <span class="token comment">// 渲染场景和相机到canvas上</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/camera.html" class="prev">
+        相机(camera)
+      </a></span> <span class="next"><a href="/light.html">
+        灯光(light)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d32b22e5.js" defer></script><script src="/assets/js/2.f44a4f26.js" defer></script><script src="/assets/js/15.b202173c.js" defer></script>
+  </body>
+</html>

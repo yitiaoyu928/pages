@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>射线拾取(raycaster) | three.js手册</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e8e4f3a3.css" as="style"><link rel="preload" href="/assets/js/app.d32b22e5.js" as="script"><link rel="preload" href="/assets/js/2.f44a4f26.js" as="script"><link rel="preload" href="/assets/js/14.a6a44a83.js" as="script"><link rel="prefetch" href="/assets/js/10.16baf44d.js"><link rel="prefetch" href="/assets/js/11.537a8446.js"><link rel="prefetch" href="/assets/js/12.362e04f9.js"><link rel="prefetch" href="/assets/js/13.478c8608.js"><link rel="prefetch" href="/assets/js/15.b202173c.js"><link rel="prefetch" href="/assets/js/16.45cfd493.js"><link rel="prefetch" href="/assets/js/3.a72851b7.js"><link rel="prefetch" href="/assets/js/4.7ac2b204.js"><link rel="prefetch" href="/assets/js/5.f702624b.js"><link rel="prefetch" href="/assets/js/6.c76c0e1e.js"><link rel="prefetch" href="/assets/js/7.cab9d115.js"><link rel="prefetch" href="/assets/js/8.93cf2ae6.js"><link rel="prefetch" href="/assets/js/9.d69edd5b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e8e4f3a3.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">three.js手册</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/scene.html" class="sidebar-link">场景(scene)</a></li><li><a href="/camera.html" class="sidebar-link">相机(camera)</a></li><li><a href="/render.html" class="sidebar-link">渲染器(render)</a></li><li><a href="/light.html" class="sidebar-link">灯光(light)</a></li><li><a href="/material.html" class="sidebar-link">材质(material)</a></li><li><a href="/raycaster.html" aria-current="page" class="active sidebar-link">射线拾取(raycaster)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/raycaster.html#射线拾取-raycaster" class="sidebar-link">射线拾取(raycaster)</a></li></ul></li><li><a href="/geometry.html" class="sidebar-link">几何形状(geometry)</a></li><li><a href="/mesh.html" class="sidebar-link">3D对象类(mesh)</a></li><li><a href="/loader.html" class="sidebar-link">加载器(Loader)</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="射线拾取-raycaster"><a href="#射线拾取-raycaster" class="header-anchor">#</a> 射线拾取(raycaster)</h2> <p><strong>Raycaster</strong>是 three.js 库中的一个类，用于进行射线拾取操作，即检测射线与场景中的物体是否相交，并返回相交的物体信息。射线拾取是一种常用的交互方式，可以用于实现鼠标交互、物体拖拽、碰撞检测等功能。</p> <p>Raycaster 需要传入两个参数，一个是射线的起点，另一个是射线的方向。可以通过设置相应的属性来控制射线的起点和方向，例如设置 raycaster.setFromCamera()方法的参数，可以将射线的起点设置为相机的位置，并将射线的方向设置为相机指向鼠标点击位置的方向。</p> <p>Raycaster 的 intersectObjects()方法可以用于检测射线和场景中的物体是否相交，并返回相交的物体信息。该方法需要传入一个参数，即需要检测的物体数组。如果射线与某个物体相交，则该方法会返回一个包含相交物体信息的数组，包括相交点的坐标、相交面的法向量、相交的物体等。</p> <h4 id="创建"><a href="#创建" class="header-anchor">#</a> 创建</h4> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">const</span> raycaster <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>Raycaster</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> mouse <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>Vector2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// 屏幕坐标转空间坐标</span>
+<span class="token keyword">function</span> <span class="token function">onMouseMove</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  mouse<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>clientX <span class="token operator">/</span> window<span class="token punctuation">.</span>innerWidth<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token number">1</span>
+  mouse<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>clientY <span class="token operator">/</span> window<span class="token punctuation">.</span>innerHeight<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">pickObjects</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 设置射线的起点和方向</span>
+  raycaster<span class="token punctuation">.</span><span class="token function">setFromCamera</span><span class="token punctuation">(</span>mouse<span class="token punctuation">,</span> camera<span class="token punctuation">)</span>
+  <span class="token comment">// 检测射线和场景中的物体是否相交。如果相交，则将相交物体的名称输出到控制台中</span>
+  <span class="token keyword">const</span> intersects <span class="token operator">=</span> raycaster<span class="token punctuation">.</span><span class="token function">intersectObjects</span><span class="token punctuation">(</span>scene<span class="token punctuation">.</span>children<span class="token punctuation">)</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>intersects<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> intersect <span class="token operator">=</span> intersects<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>intersect<span class="token punctuation">.</span>object<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'mousemove'</span><span class="token punctuation">,</span> onMouseMove<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> pickObjects<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/material.html" class="prev">
+        材质(material)
+      </a></span> <span class="next"><a href="/geometry.html">
+        几何形状(geometry)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d32b22e5.js" defer></script><script src="/assets/js/2.f44a4f26.js" defer></script><script src="/assets/js/14.a6a44a83.js" defer></script>
+  </body>
+</html>

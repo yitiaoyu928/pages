@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mesh | three.js手册</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.e8e4f3a3.css" as="style"><link rel="preload" href="/assets/js/app.d32b22e5.js" as="script"><link rel="preload" href="/assets/js/2.f44a4f26.js" as="script"><link rel="preload" href="/assets/js/13.478c8608.js" as="script"><link rel="prefetch" href="/assets/js/10.16baf44d.js"><link rel="prefetch" href="/assets/js/11.537a8446.js"><link rel="prefetch" href="/assets/js/12.362e04f9.js"><link rel="prefetch" href="/assets/js/14.a6a44a83.js"><link rel="prefetch" href="/assets/js/15.b202173c.js"><link rel="prefetch" href="/assets/js/16.45cfd493.js"><link rel="prefetch" href="/assets/js/3.a72851b7.js"><link rel="prefetch" href="/assets/js/4.7ac2b204.js"><link rel="prefetch" href="/assets/js/5.f702624b.js"><link rel="prefetch" href="/assets/js/6.c76c0e1e.js"><link rel="prefetch" href="/assets/js/7.cab9d115.js"><link rel="prefetch" href="/assets/js/8.93cf2ae6.js"><link rel="prefetch" href="/assets/js/9.d69edd5b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e8e4f3a3.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">three.js手册</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/scene.html" class="sidebar-link">场景(scene)</a></li><li><a href="/camera.html" class="sidebar-link">相机(camera)</a></li><li><a href="/render.html" class="sidebar-link">渲染器(render)</a></li><li><a href="/light.html" class="sidebar-link">灯光(light)</a></li><li><a href="/material.html" class="sidebar-link">材质(material)</a></li><li><a href="/raycaster.html" class="sidebar-link">射线拾取(raycaster)</a></li><li><a href="/geometry.html" class="sidebar-link">几何形状(geometry)</a></li><li><a href="/mesh.html" aria-current="page" class="active sidebar-link">3D对象类(mesh)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/mesh.html#mesh" class="sidebar-link">Mesh</a></li></ul></li><li><a href="/loader.html" class="sidebar-link">加载器(Loader)</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="mesh"><a href="#mesh" class="header-anchor">#</a> Mesh</h2> <p><strong>Mesh</strong>是用于将几何体（Geometry）和材质（Material）结合起来创建 3D 对象的类。Mesh 是 THREE.js 的核心类之一，它可以通过将几何体与材质进行组合来创建具有颜色、纹理、透明度等特性的 3D 模型。
+Mesh对象不仅仅是一个3D模型，它还可以添加动画、事件等功能，使其更具交互性和动态性。</p> <h3 id="示例"><a href="#示例" class="header-anchor">#</a> 示例</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">var</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>BoxGeometry</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">var</span> material <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>MeshBasicMaterial</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">color</span><span class="token operator">:</span> <span class="token number">0xff0000</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">var</span> mesh <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">THREE<span class="token punctuation">.</span>Mesh</span><span class="token punctuation">(</span>geometry<span class="token punctuation">,</span> material<span class="token punctuation">)</span>
+State<span class="token punctuation">.</span>scene<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>mesh<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/geometry.html" class="prev">
+        几何形状(geometry)
+      </a></span> <span class="next"><a href="/loader.html">
+        加载器(Loader)
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d32b22e5.js" defer></script><script src="/assets/js/2.f44a4f26.js" defer></script><script src="/assets/js/13.478c8608.js" defer></script>
+  </body>
+</html>
